@@ -1,5 +1,7 @@
 # 台灣光觀景點推薦網站: Frontend ( React + TypeScript + Vite ) + Backend ( Supabase + Vercel ) 
 
+作品網址: [台灣光觀景點推薦網站](https://attraction-website.vercel.app)
+
 此為台灣景點推薦網站使用Typescript作為主要程式語言，而非使用Javascript是為了提升型別的嚴格性，以減少執行時會可能發生的錯誤。
 
 而後端的部分為了減少網站的成本所以我使用了Supabase以及Vercel，二者都給予了使用者免費又強大的功能，Supabase提供了簡易但完整的資料庫系統，Vercel提供了Server端的運行環境。
