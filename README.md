@@ -46,3 +46,6 @@ Google Client Auth
 為了完成觀光地點的儲存，所以我需要一個資料庫，而Vercel提供的是網頁的靜態需求，所以不包含資料庫，因此我找了Supabase雖然他提供的是簡易的資料庫功能，但也已經是十分足夠，在Supabase中我創建了兩個Table去儲存資料，一個是attraction Table專門儲存顯示於網頁的觀光景點，另一個是Suggest Table用於儲存使用者想推薦的觀光景點，而在這項專案中我還加入了Google登入，我去NPM裡面找到了Google OAuth的Model，這個Model處裡了Google OAuth相關的問題，這樣我就可以暫時取的使用者的Email、使用者名稱，而這兩項我會用於登記Suggest Table裡面email、name這兩個column的資料。為了提升不同使用者設備的使用體感，所以選用了Tailwindcss，Tailwindcss提供對於手機、平板、筆電以及桌上型電腦，使得RWD的設計變得較容易。
 
 最後做出的網站，功能上也都有執行到，但畫面的UI可能還有待調整，使用者體驗上也相較於以往需要Google搜索各式各樣的旅遊指南提升了不少，但目前資料庫的資料量還有點少，所以需要添加一些資料。成本的部分就需要依照使用者流量做決定，如果使用者流量夠多的時候Vercel就會需要使用付費方案，Supabase也是，到時就需要前往向AWS EC2、Google Cloud等，租用這些雲端功能建立後段伺服器，並且購買一個合適的Domain，這些花費可能就需要一個月3000~4000如果流量更多就需要再往上添加，但以目前網站demo的情況是不需要使用到付費專案。
+
+## 總體網頁流程圖
+<img width="429" height="568" alt="image" src="https://github.com/user-attachments/assets/20c34fb2-939e-49a6-9c9d-f6532dd2da27" />
