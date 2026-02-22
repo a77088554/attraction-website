@@ -1,36 +1,16 @@
-import { useEffect, useState } from 'react'
-import type { TaiwanWeatherResponse } from '../../types/taiwanWeatherType'
-import { supabase } from '../../config/Supabase';
-import type { Attraction } from '../../types/attraction';
-import SubmitSuggest from '../../components/SubmitSuggest';
+import { useState } from 'react'
+import { TaiwanWeatherModel } from '../types/taiwanWeatherType'
+import { AttractionModel } from '../types/attractionType'
+import SubmitSuggest from './SubmitSuggest'
+import { UserModel } from '../types/UserType'
 
-function Main({WeatherData, Citys, IsLogin}: {WeatherData: TaiwanWeatherResponse[] | null, Citys: string[], IsLogin: boolean}){
+// 補充Attraction資料在props中
+function Main({WeatherData, Citys, Attractions, IsLogin, user}: {WeatherData: TaiwanWeatherModel[], Citys: string[], Attractions:AttractionModel[], IsLogin: boolean, user: UserModel}){
     const [city, setCity] = useState<string>('嘉義縣')
-    const [attractions, setAttractions] = useState<Attraction[] | null>()
     const [showSubmit, setShowSubmit] = useState<boolean>(false)
-    const weather = WeatherData?.find((item: TaiwanWeatherResponse) => item.locationName === city)?.weatherElement[0].time[0].parameter.parameterName
-    const minTemp = WeatherData?.find((item:TaiwanWeatherResponse)=> item.locationName === city)?.weatherElement[2].time[0].parameter.parameterName
-    const maxTemp = WeatherData?.find((item: TaiwanWeatherResponse) => item.locationName === city)?.weatherElement[4].time[0].parameter.parameterName
-
-    // 取得supabase中關於attractions的資料
-    useEffect(()=>{
-        const fetchAttractions = async()=>{
-            const {data, error} = await supabase
-                .from('attractions')
-                .select()
-            if(error?.message){
-                alert(error.message)
-            }else{
-                setAttractions(data)
-            }
-        }
-        try{
-            fetchAttractions()
-        }
-        catch{
-            alert("Error of GET data")
-        }
-    },[])
+    const weather = WeatherData?.find((item: TaiwanWeatherModel) => item.locationName === city)?.weatherElement[0].time[0].parameter.parameterName
+    const minTemp = WeatherData?.find((item:TaiwanWeatherModel)=> item.locationName === city)?.weatherElement[2].time[0].parameter.parameterName
+    const maxTemp = WeatherData?.find((item: TaiwanWeatherModel) => item.locationName === city)?.weatherElement[4].time[0].parameter.parameterName
 
     // 處裡使用者按下上傳推薦按鈕
     const handlePost = (i: boolean)=>{
@@ -52,7 +32,7 @@ function Main({WeatherData, Citys, IsLogin}: {WeatherData: TaiwanWeatherResponse
                     <div className='h-fit flex-col-center bg-[#FFE66F] rounded-2xl shadow-lg p-3'>
                         <h1 className=''>當地天氣預報</h1>
                         <div>
-                            {WeatherData?.map((item: TaiwanWeatherResponse) => {
+                            {WeatherData?.map((item: TaiwanWeatherModel) => {
                                 if(item.locationName === city){
                                     return(
                                         <div key={item.locationName}>
@@ -72,7 +52,7 @@ function Main({WeatherData, Citys, IsLogin}: {WeatherData: TaiwanWeatherResponse
                     <div className='flex-col-center bg-[#FFE66F] rounded-2xl shadow-lg p-3'>
                         <h1>{city}推薦光觀地點</h1>
                         <div className='grid lg:grid-cols-4 md:grid-cols-3 gap-4 odd:'>
-                            {attractions && attractions.map((item: Attraction)=>{
+                            {Attractions && Attractions.map((item: AttractionModel)=>{
                                 if(item.city === city){
                                     return(
                                         <div key={item.location} className='h-30 flex-col-center justify-center bg-gray-300 p-2 rounded-lg shadow-md '>
@@ -85,7 +65,7 @@ function Main({WeatherData, Citys, IsLogin}: {WeatherData: TaiwanWeatherResponse
                             <div className='h-30 bg-gray-300 p-2 rounded-lg shadow-md flex-col-center justify-center'>
                                 提交其他景點
                                 <button onClick={()=>handlePost(IsLogin)}>➔</button>
-                                {showSubmit && <SubmitSuggest setShowSubmit={setShowSubmit} city={city}/>}
+                                {showSubmit && <SubmitSuggest setShowSubmit={setShowSubmit} city={city} user={user}/>}
                             </div>
                         </div>
                     </div>
