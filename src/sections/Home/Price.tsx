@@ -3,7 +3,10 @@ import type { Product } from "../../types/product"
 function Price({Products, Error, IsLogin}: {Products: Product[] | null, Error: string | null, IsLogin: boolean}){
     const handleClick = (login: boolean):void=> {
         if(login === false){
-            alert("單純測試用，但也謝謝斗內!")
+            alert("尚未登入")
+        }
+        if(login === true){
+            alert("尚未實作，但也敢寫你的支持")
         }
     }
     
