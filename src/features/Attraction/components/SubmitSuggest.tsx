@@ -1,10 +1,8 @@
-import { useContext } from "react";
-import { supabase } from "../config/Supabase";
-import UserContext from "../context/UserContext";
+import { supabase } from "../../../core/config/Supabase";
+import { UserModel } from "../types/UserType";
 
-function SubmitSuggest({setShowSubmit, city}: {setShowSubmit: React.Dispatch<React.SetStateAction<boolean>>, city: string}) {
-    const user = useContext(UserContext)
 
+function SubmitSuggest({setShowSubmit, city, user}: {setShowSubmit: React.Dispatch<React.SetStateAction<boolean>>, city: string, user: UserModel}) {
     // 將使用者所推薦的地點以及位置上傳到supabase
     const insertSuggest = async ({email, name, attraction, location, city}: {email: string, name: string, attraction: string, location: string, city: string}) => {
         const { data, error } = await supabase

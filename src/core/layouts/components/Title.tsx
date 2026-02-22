@@ -1,11 +1,9 @@
 import { GoogleLogin, googleLogout } from "@react-oauth/google"
 import { jwtDecode } from "jwt-decode"
-import type { User } from "../../types/user"
 import { useEffect } from "react"
+import { UserModel } from "../types/UserType"
 
-function Title({isLogin, setIsLogin, user, setUser, menuOpen, setMenuOpen}: {isLogin: boolean, setIsLogin: React.Dispatch<React.SetStateAction<boolean>>, user: User | null, setUser: React.Dispatch<React.SetStateAction<User | null>>, menuOpen: boolean, setMenuOpen: React.Dispatch<React.SetStateAction<boolean>>}){
-    // const [menuOpen, setMenuOpen] = useState(false)
-    
+function Title({isLogin, setIsLogin, user, setUser, menuOpen, setMenuOpen}: {isLogin: boolean, setIsLogin: React.Dispatch<React.SetStateAction<boolean>>, user: UserModel, setUser: React.Dispatch<React.SetStateAction<UserModel>>, menuOpen: boolean, setMenuOpen: React.Dispatch<React.SetStateAction<boolean>>}){
     // 點擊選單外取消menu
     useEffect(()=>{
         const handleClickOutside = ()=> setMenuOpen(false)
@@ -17,7 +15,7 @@ function Title({isLogin, setIsLogin, user, setUser, menuOpen, setMenuOpen}: {isL
 
     const handleLogout = ()=>{
         googleLogout()
-        setUser(null)
+        setUser({email: '', name: '', attraction: '', location: '', city: ''})
         setIsLogin(false)
         alert("已登出")
     }
@@ -42,7 +40,7 @@ function Title({isLogin, setIsLogin, user, setUser, menuOpen, setMenuOpen}: {isL
                             onSuccess={credentialResponse => {
                                 const user = jwtDecode<{email: string, name:string}>(credentialResponse.credential ?? '')
                                 alert(`登入成功，歡迎 ${user.name}`)
-                                setUser({email: user.email, name: user.name})
+                                setUser({email: user.email, name: user.name, attraction: '', location: '', city: ''})
                                 setIsLogin(true)
                             }}
                             onError={() => {
@@ -58,13 +56,13 @@ function Title({isLogin, setIsLogin, user, setUser, menuOpen, setMenuOpen}: {isL
                 </div>
             </div>
             {menuOpen && (
-                <div className="bg-[#FFFCEC] shadow-md font-bold text-xl flex-col-center pb-3">
+                <div className="w-full bg-[#FFFCEC] shadow-md font-bold text-xl flex-col-center py-3 mb-3">
                     {!isLogin ?
                         <GoogleLogin
                             onSuccess={credentialResponse => {
                                 const user = jwtDecode<{email: string, name:string}>(credentialResponse.credential ?? '')
                                 alert(`登入成功，歡迎 ${user.name}`)
-                                setUser({email: user.email, name: user.name})
+                                setUser({email: user.email, name: user.name, attraction: '', location: '', city: ''})
                                 setIsLogin(true)
                             }}
                             onError={() => {
