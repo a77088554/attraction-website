@@ -1,13 +1,20 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { TaiwanWeatherModel } from '../types/taiwanWeatherType'
 import { AttractionModel } from '../types/attractionType'
 import SubmitSuggest from './SubmitSuggest'
-import { UserModel } from '../types/UserType'
+import useWeather from '../hooks/useWeather'
+import useAttraction from '../hooks/useAttraction'
+import { AuthContext } from '../../../core/shared/context/AuthContext'
 
 // 補充Attraction資料在props中
-function Main({WeatherData, Citys, Attractions, IsLogin, user}: {WeatherData: TaiwanWeatherModel[], Citys: string[], Attractions:AttractionModel[], IsLogin: boolean, user: UserModel}){
+// {WeatherData, Citys, Attractions, IsLogin, user}: {WeatherData: TaiwanWeatherModel[], Citys: string[], Attractions:AttractionModel[], IsLogin: boolean, user: UserModel}
+function Main(){
+    const {IsLogin, User} = useContext(AuthContext)
+    const {Attractions} = useAttraction()
     const [city, setCity] = useState<string>('嘉義縣')
     const [showSubmit, setShowSubmit] = useState<boolean>(false)
+    const {WeatherData} = useWeather()
+    const Citys: string[] = WeatherData ? WeatherData.map((item: TaiwanWeatherModel) => item.locationName) : []
     const weather = WeatherData?.find((item: TaiwanWeatherModel) => item.locationName === city)?.weatherElement[0].time[0].parameter.parameterName
     const minTemp = WeatherData?.find((item:TaiwanWeatherModel)=> item.locationName === city)?.weatherElement[2].time[0].parameter.parameterName
     const maxTemp = WeatherData?.find((item: TaiwanWeatherModel) => item.locationName === city)?.weatherElement[4].time[0].parameter.parameterName
@@ -65,7 +72,7 @@ function Main({WeatherData, Citys, Attractions, IsLogin, user}: {WeatherData: Ta
                             <div className='h-30 bg-gray-300 p-2 rounded-lg shadow-md flex-col-center justify-center'>
                                 提交其他景點
                                 <button onClick={()=>handlePost(IsLogin)}>➔</button>
-                                {showSubmit && <SubmitSuggest setShowSubmit={setShowSubmit} city={city} user={user}/>}
+                                {showSubmit && <SubmitSuggest setShowSubmit={setShowSubmit} city={city} user={User}/>}
                             </div>
                         </div>
                     </div>
