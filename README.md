@@ -49,3 +49,6 @@ Google Client Auth
 
 ## 總體網頁流程圖
 <img width="429" height="568" alt="image" src="https://github.com/user-attachments/assets/20c34fb2-939e-49a6-9c9d-f6532dd2da27" />
+
+## React專案的架構
+在這個專案中為提升專案的可擴展性以及可讀性，後期選擇了以feature-based的設計架構，不再是將檔案拆分成components、page這種方式而是以功能作為基礎，每一個功能內部會有components、hooks、types、views將其功能內部所需要的函數功能都拆分出來方便日後維護或是添加興功能用時可以提升搜尋速度。
