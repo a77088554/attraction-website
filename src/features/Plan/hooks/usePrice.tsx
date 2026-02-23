@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { PriceModel } from "../types/priceType"
+import { PriceModel } from "../../Attraction/types/priceType"
 import { supabase } from "../../../core/config/Supabase"
 
 function usePrice(){

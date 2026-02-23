@@ -1,17 +1,19 @@
 import { GoogleLogin, googleLogout } from "@react-oauth/google"
 import { jwtDecode } from "jwt-decode"
-import { useEffect } from "react"
-import { UserModel } from "../types/UserType"
+import { useContext, useEffect } from "react"
+import { AuthContext } from "../../shared/context/AuthContext"
 
-function Title({isLogin, setIsLogin, user, setUser, menuOpen, setMenuOpen}: {isLogin: boolean, setIsLogin: React.Dispatch<React.SetStateAction<boolean>>, user: UserModel, setUser: React.Dispatch<React.SetStateAction<UserModel>>, menuOpen: boolean, setMenuOpen: React.Dispatch<React.SetStateAction<boolean>>}){
+function Title(){
+    const {IsLogin, setIsLogin, User, setUser, MenuOpen, setMenuOpen} = useContext(AuthContext)
+
     // 點擊選單外取消menu
     useEffect(()=>{
         const handleClickOutside = ()=> setMenuOpen(false)
-        if(menuOpen){
+        if(MenuOpen){
             window.addEventListener("click", handleClickOutside)
         }
         return ()=> window.removeEventListener("click", handleClickOutside)
-    },[menuOpen, setMenuOpen])
+    },[MenuOpen, setMenuOpen])
 
     const handleLogout = ()=>{
         googleLogout()
@@ -35,7 +37,7 @@ function Title({isLogin, setIsLogin, user, setUser, menuOpen, setMenuOpen}: {isL
                         ≡
                 </button>
                 <div className="max-sm:hidden">
-                    {!isLogin?
+                    {!IsLogin?
                         <GoogleLogin
                             onSuccess={credentialResponse => {
                                 const user = jwtDecode<{email: string, name:string}>(credentialResponse.credential ?? '')
@@ -49,15 +51,15 @@ function Title({isLogin, setIsLogin, user, setUser, menuOpen, setMenuOpen}: {isL
                             useOneTap
                         />:
                         <div className="flex-col-center max-sm:hidden">
-                            <div>Hi, {user?.name}</div>
+                            <div>Hi, {User?.name}</div>
                             <button onClick={handleLogout}>登出</button>
                         </div>
                     }
                 </div>
             </div>
-            {menuOpen && (
+            {MenuOpen && (
                 <div className="w-full bg-[#FFFCEC] shadow-md font-bold text-xl flex-col-center py-3 mb-3">
-                    {!isLogin ?
+                    {!IsLogin ?
                         <GoogleLogin
                             onSuccess={credentialResponse => {
                                 const user = jwtDecode<{email: string, name:string}>(credentialResponse.credential ?? '')
@@ -71,7 +73,7 @@ function Title({isLogin, setIsLogin, user, setUser, menuOpen, setMenuOpen}: {isL
                             useOneTap
                         />:
                         <div className="flex-col-center">
-                            <div>Hi, {user?.name}</div>
+                            <div>Hi, {User?.name}</div>
                             <button onClick={handleLogout}>登出</button>
                         </div>
                     }

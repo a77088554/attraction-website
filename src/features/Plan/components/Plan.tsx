@@ -1,6 +1,12 @@
-import { PriceModel } from "../types/priceType"
+import { useContext } from "react";
+import { PriceModel } from "../../Attraction/types/priceType"
+import usePrice from "../hooks/usePrice";
+import { AuthContext } from "../../../core/shared/context/AuthContext";
 
-function Plan({Price, IsLogin}: {Price: PriceModel[], IsLogin: boolean}){
+function Plan(){
+    const {Price} = usePrice();
+    const {IsLogin} = useContext(AuthContext)
+
     const handleClick = (login: boolean):void=> {
         if(login === false){
             alert("尚未登入")
