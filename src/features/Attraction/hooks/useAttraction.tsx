@@ -18,7 +18,12 @@ function useAttraction(){
                 alert(error.message)
             }
         }
-        fetchAttractions()
+        try{
+            fetchAttractions()    
+        }
+        catch{
+            alert('讀取錯誤，請刷新頁面')
+        }
     },[])
     
 

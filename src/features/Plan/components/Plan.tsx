@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { PriceModel } from "../../Attraction/types/priceType"
+import { PriceModel } from "../types/priceType"
 import usePrice from "../hooks/usePrice";
-import { AuthContext } from "../../../core/shared/context/AuthContext";
+import { AuthContext } from "../../../core/context/AuthContext";
 
 function Plan(){
     const {Price} = usePrice();

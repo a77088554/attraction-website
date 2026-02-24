@@ -4,7 +4,7 @@ import "./core/assets/App.css"
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import FullLayout from './core/layouts/FullLayout.tsx'
 import App from './App.tsx'
-import { AuthProvider } from './core/shared/context/AuthContext.tsx'
+import { AuthProvider } from './core/context/AuthContext.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
