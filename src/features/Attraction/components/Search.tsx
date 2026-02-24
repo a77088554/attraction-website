@@ -16,7 +16,7 @@ function Search(){
                     placeholder="輸入景點名稱"
                     className="p-1 bg-amber-50 rounded"
                     onChange={(e)=>setInput(e.target.value)}/>            
-                <div className="sm:flex flex-col gap-1">
+                <div className="max-sm:flex-col-center sm:flex sm:justify-center sm:items-center gap-1">
                     {Search?.map((item)=>{
                             return(
                                 <div key={item.location} className='mt-3 h-30 flex-col-center justify-center bg-gray-300 p-2 rounded-lg shadow-md '>
