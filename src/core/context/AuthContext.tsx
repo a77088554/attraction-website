@@ -1,5 +1,5 @@
 import { createContext, useMemo, useState } from "react";
-import { UserModel } from "../../layouts/types/UserType";
+import { UserModel } from "../layouts/types/UserType";
 
 type AuthContextType = {
     IsLogin: boolean;
@@ -8,10 +8,9 @@ type AuthContextType = {
     setUser: React.Dispatch<React.SetStateAction<UserModel>>;
     MenuOpen: boolean;
     setMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    
 }
 
-const AuthContext = createContext<AuthContextType>({IsLogin: true} as AuthContextType)
+const AuthContext = createContext<AuthContextType>({} as AuthContextType)
     
 function AuthProvider({ children }: { children: React.ReactNode }) {
     const [IsLogin, setIsLogin] = useState<boolean>(false)

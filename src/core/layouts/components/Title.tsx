@@ -1,7 +1,7 @@
 import { GoogleLogin, googleLogout } from "@react-oauth/google"
 import { jwtDecode } from "jwt-decode"
 import { useContext, useEffect } from "react"
-import { AuthContext } from "../../shared/context/AuthContext"
+import { AuthContext } from "../../context/AuthContext"
 
 function Title(){
     const {IsLogin, setIsLogin, User, setUser, MenuOpen, setMenuOpen} = useContext(AuthContext)

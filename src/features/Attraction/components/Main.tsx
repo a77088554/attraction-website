@@ -4,12 +4,11 @@ import { AttractionModel } from '../types/attractionType'
 import SubmitSuggest from './SubmitSuggest'
 import useWeather from '../hooks/useWeather'
 import useAttraction from '../hooks/useAttraction'
-import { AuthContext } from '../../../core/shared/context/AuthContext'
+import { AuthContext } from '../../../core/context/AuthContext'
 
 // 補充Attraction資料在props中
-// {WeatherData, Citys, Attractions, IsLogin, user}: {WeatherData: TaiwanWeatherModel[], Citys: string[], Attractions:AttractionModel[], IsLogin: boolean, user: UserModel}
 function Main(){
-    const {IsLogin, User} = useContext(AuthContext)
+    const {IsLogin} = useContext(AuthContext)
     const {Attractions} = useAttraction()
     const [city, setCity] = useState<string>('嘉義縣')
     const [showSubmit, setShowSubmit] = useState<boolean>(false)
@@ -32,7 +31,7 @@ function Main(){
     
     return(
         <>
-            <div className="w-full py-8 bg-[#FFF4C1] flex-col-center">
+            <div className="flex-col-center">
                 功能
                 <div className='flex max-sm:flex-col gap-5'>
                     {/* 當地天氣預報 */}
@@ -72,7 +71,7 @@ function Main(){
                             <div className='h-30 bg-gray-300 p-2 rounded-lg shadow-md flex-col-center justify-center'>
                                 提交其他景點
                                 <button onClick={()=>handlePost(IsLogin)}>➔</button>
-                                {showSubmit && <SubmitSuggest setShowSubmit={setShowSubmit} city={city} user={User}/>}
+                                {showSubmit && <SubmitSuggest setShowSubmit={setShowSubmit} city={city}/>}
                             </div>
                         </div>
                     </div>
