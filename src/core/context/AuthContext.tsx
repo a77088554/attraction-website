@@ -14,7 +14,7 @@ const AuthContext = createContext<AuthContextType>({} as AuthContextType)
     
 function AuthProvider({ children }: { children: React.ReactNode }) {
     const [IsLogin, setIsLogin] = useState<boolean>(false)
-    const [User, setUser] = useState<UserModel>({email: '', name: '', attraction: '', location: '', city: ''})
+    const [User, setUser] = useState<UserModel>({} as UserModel)
     const [MenuOpen, setMenuOpen] = useState<boolean>(false)
     const value = useMemo(()=>({
         IsLogin,

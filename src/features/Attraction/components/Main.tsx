@@ -5,9 +5,10 @@ import SubmitSuggest from './SubmitSuggest'
 import useWeather from '../hooks/useWeather'
 import useAttraction from '../hooks/useAttraction'
 import { AuthContext } from '../../../core/context/AuthContext'
+// import useFavorites from '../hooks/useFavorites'
 
 // 補充Attraction資料在props中
-function Main(){
+function Main({Favorites, UpdateFavorites}:{Favorites: number[], UpdateFavorites: (input: number[]) => Promise<void>}){
     const {IsLogin} = useContext(AuthContext)
     const {Attractions} = useAttraction()
     const [city, setCity] = useState<string>('嘉義縣')
@@ -17,6 +18,8 @@ function Main(){
     const weather = WeatherData?.find((item: TaiwanWeatherModel) => item.locationName === city)?.weatherElement[0].time[0].parameter.parameterName
     const minTemp = WeatherData?.find((item:TaiwanWeatherModel)=> item.locationName === city)?.weatherElement[2].time[0].parameter.parameterName
     const maxTemp = WeatherData?.find((item: TaiwanWeatherModel) => item.locationName === city)?.weatherElement[4].time[0].parameter.parameterName
+    // const {Favorites, UpdateFavorites} = useFavorites()
+    
 
     // 處裡使用者按下上傳推薦按鈕
     const handlePost = (i: boolean)=>{
@@ -29,6 +32,20 @@ function Main(){
         }
     }
     
+    // 處裡收藏功能
+    const handleCollection = (i:number)=>{
+        const isCollection = Favorites.includes(i)
+        if(IsLogin === false) return 
+        if(isCollection){
+            const result = Favorites.filter(item=> item!=i)
+            UpdateFavorites(result)
+        }
+        else{
+            const result = [...Favorites, i].sort((a: number, b: number)=> a-b)
+            UpdateFavorites(result)
+        }
+    }
+
     return(
         <>
             <div className="flex-col-center">
@@ -57,13 +74,19 @@ function Main(){
                     {/* 推薦觀光景點 */}
                     <div className='flex-col-center bg-[#FFE66F] rounded-2xl shadow-lg p-3'>
                         <h1>{city}推薦光觀地點</h1>
-                        <div className='grid lg:grid-cols-4 md:grid-cols-3 gap-4 odd:'>
+                        <div className='grid lg:grid-cols-4 md:grid-cols-3 gap-4'>
                             {Attractions && Attractions.map((item: AttractionModel)=>{
                                 if(item.city === city){
                                     return(
-                                        <div key={item.location} className='h-30 flex-col-center justify-center bg-gray-300 p-2 rounded-lg shadow-md '>
+                                        <div key={item.id} className='relative h-30 flex-col-center justify-center bg-gray-300 p-2 rounded-lg shadow-md'>
                                             {item.name}
                                             <a href={item.location} target='_blank'>➔</a>
+                                            {/* 添加判斷是否為收藏 */}
+                                            <button 
+                                                className='absolute w-6 text-red-600 top-2 left-2 hover:scale-125 hover:text-red-800 active:bg-gray-400 rounded-full transition-all  duration-300'
+                                                onClick={()=>handleCollection(item.id)}>
+                                                    {Favorites.includes(item.id)? '★': '☆'}
+                                            </button>
                                         </div>
                                     )
                                 }

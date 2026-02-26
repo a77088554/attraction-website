@@ -2,10 +2,12 @@ import { GoogleLogin, googleLogout } from "@react-oauth/google"
 import { jwtDecode } from "jwt-decode"
 import { useContext, useEffect } from "react"
 import { AuthContext } from "../../context/AuthContext"
+import useCreateFavorites from "../../hooks/useCreateFavorites"
 
 function Title(){
+    useCreateFavorites()
     const {IsLogin, setIsLogin, User, setUser, MenuOpen, setMenuOpen} = useContext(AuthContext)
-
+    
     // 點擊選單外取消menu
     useEffect(()=>{
         const handleClickOutside = ()=> setMenuOpen(false)

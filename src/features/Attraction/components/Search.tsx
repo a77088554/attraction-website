@@ -9,7 +9,7 @@ function Search(){
 
     return(
         <>
-            <div className="flex-col-center bg-[#FFE66F] mt-4 p-5 shadow-xl rounded-2xl">
+            <div className="h-fit flex-col-center justify-center bg-[#FFE66F] mt-4 p-5 shadow-xl rounded-2xl">
                 <h2>搜尋景點</h2>
                 <input 
                     type="text" 
