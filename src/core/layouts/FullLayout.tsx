@@ -5,7 +5,7 @@ import GoTopButton from "./components/GoTopButton"
 
 function FullLayout({ children }: { children: React.ReactNode }){
     return(
-        <div className="w-full font-bold flex-col-center overflow-x-hidden">
+        <div className="w-full font-bold flex-col-center overflow-x-hidden bg-slate-50">
             <Title/>
             <Header/>
             {children}

@@ -5,3 +5,26 @@
         @apply flex flex-col items-center;
     }
 }
+
+@theme{
+    --animate-fade-in-out: apear 0.3s ease-out; 
+    
+    @keyframes apear{
+        0%{
+            opacity: 0;
+            position: fixed;
+            animation-timeline: scroll(y)
+        }
+        3%{
+            opacity:0;
+        }
+        3.5%{
+            opacity: 1;
+        }
+        100%{
+            opacity: 1;
+            position: fixed;
+            animation-timeline: scroll(y)
+        }
+    }
+}

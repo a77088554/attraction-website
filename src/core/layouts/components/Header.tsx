@@ -1,20 +1,21 @@
 function Header(){
     return(
         <>
-            <div className="sm:flex justify-center items-center">
-                <div className="relative left-4 sm:max-w-[30dvw]  w-[80dvw] max-sm:">
-                    <h1 className="sm:text-3xl text-2xl">各地觀光景點推薦網站</h1>
-                    <p>難得的休假卻為了找到美好的地方，美好的景點，因此創建此網站就是為了節省人們的時間。</p>
-                </div>
-                <img 
-                    src="https://decing.tw/wp-content/uploads/20190124084958_35.jpg" 
-                    alt="台南安平-河童町故事館" 
-                    className="sm:relative sm:left-[10%] sm:w-[60dvw] h-dvh max-sm:hidden rounded-l-full"
-                    style={{
-                        maskImage: "linear-gradient(to left, black 70%, transparent 100%)",
-                        WebkitMaskImage: "linear-gradient(to left, black 70%, transparent 100%)"
-                    }}
+            <div className="relative w-full h-100 rounded-3xl overflow-hidden">
+                <img
+                    src="https://decing.tw/wp-content/uploads/20190124084958_35.jpg"
+                    className="absolute inset-0 w-full h-full object-cover"
                 />
+                <div className="absolute inset-0 bg-black/30" />
+
+                <div className="relative z-10 flex flex-col justify-center h-full px-12 text-white">
+                    <h1 className="text-4xl font-bold">
+                    探索屬於你的旅遊地圖
+                    </h1>
+                    <p className="mt-4 text-lg opacity-90">
+                    發現、收藏、規劃下一趟旅程
+                    </p>
+                </div>
             </div>
         </>
     )
