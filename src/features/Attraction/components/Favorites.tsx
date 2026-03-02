@@ -4,13 +4,18 @@ import useAttraction from "../hooks/useAttraction"
 import { AuthContext } from "../../../core/context/AuthContext"
 
 function Favorites({Favorites, UpdateFavorites}:{Favorites: number[], UpdateFavorites: (favorites: number[]) => Promise<void>}){
-    const {IsLogin} = useContext(AuthContext)
+    const {IsLogin, setMenuOpen} = useContext(AuthContext)
     const {Attractions} = useAttraction()
     // const {Favorites, UpdateFavorites} = useFavorites()
 
     const handleCollection = (i:number)=>{
         const isCollection = Favorites.includes(i)
-        if(IsLogin === false) return 
+        if(IsLogin === false){
+            setMenuOpen(true)
+            alert('尚未登入')
+            window.scrollTo({ top: 0, left:0, behavior: 'smooth' })
+            return 
+        } 
         if(isCollection){
             const result = Favorites.filter(item=> item!=i)
             UpdateFavorites(result)
@@ -22,12 +27,12 @@ function Favorites({Favorites, UpdateFavorites}:{Favorites: number[], UpdateFavo
     }
 
     return(
-        <div className="flex-col-center bg-[#FFE66F] mt-4 p-5 shadow-xl rounded-2xl">
-            <h2>已收藏的景點</h2>
-            <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-4">
+        <div className="max-sm:w-dvw bg-[#FFE66F] mt-4 p-5 shadow-xl rounded-2xl">
+            <h2 className="mb-3">已收藏的景點</h2>
+            <div className="flex gap-4 whitespace-nowrap overflow-x-auto overflow-y-hidden pb-2 snap-x snap-mandatory">
                 {Attractions && Attractions.filter((item)=>Favorites.includes(item.id)).map((item)=>{
                     return (
-                        <div key={item.id} className="relative h-30 flex-col-center justify-center bg-gray-300 p-2 rounded-lg shadow-md">
+                        <div key={item.id} className="main-card">
                             {item.name}
                             <a href={item.location} target='_blank'>➔</a>
                             <button 

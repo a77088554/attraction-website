@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react"
 
 function GoTopButton() {
-    const [visible, setVisible] = useState(false)
+    const [isVisible, setIsVisible] = useState(false)
 
     useEffect(()=>{
         const handleScroll = ()=>{
             if(window.scrollY>30){
-                setVisible(true)
+                setIsVisible(true)
             }
             else{
-                setVisible(false)
+                setIsVisible(false)
             }
         }
 
@@ -29,7 +29,7 @@ function GoTopButton() {
                 bg-gray-800 text-white
                 p-3 rounded-full shadow-lg
                 transition-all duration-300
-                ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}
+                ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}
             `}>
             Top
         </button>

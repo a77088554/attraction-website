@@ -9,8 +9,8 @@ function AttractionView(){
     return(
         <div className="w-full py-8 bg-[#FFF4C1] flex-col-center">
             <Main {...favoritesHook}/> 
-            <div className="flex justify-center max-sm:flex-col-center gap-5">
-                <Search/>
+            <div className="flex-col-center gap-5">
+                <Search {...favoritesHook}/>
                 <Favorites {...favoritesHook}/>
             </div>
             

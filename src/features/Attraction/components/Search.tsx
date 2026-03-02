@@ -1,36 +1,66 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import useDebounce from "../hooks/useDebounce"
 import useSearch from "../hooks/useSearch"
+import { AuthContext } from "../../../core/context/AuthContext"
 
-function Search(){
+function Search({Favorites, UpdateFavorites}:{Favorites: number[], UpdateFavorites: (input: number[]) => Promise<void>}){
+    const {IsLogin ,setMenuOpen} = useContext(AuthContext)
     const [input, setInput] = useState<string>("")
     const {DebounceValue} = useDebounce(input)
     const {Search} = useSearch(DebounceValue)
+    
+
+    const handleCollection = (i:number)=>{
+        const isCollection = Favorites.includes(i)
+        if(IsLogin === false){
+            setMenuOpen(true)
+            alert('尚未登入')
+            window.scrollTo({ top: 0, left:0, behavior: 'smooth' })
+            return 
+        } 
+        if(isCollection){
+            const result = Favorites.filter(item=> item!=i)
+            UpdateFavorites(result)
+        }
+        else{
+            const result = [...Favorites, i].sort((a: number, b: number)=> a-b)
+            UpdateFavorites(result)
+        }
+    }
+
 
     return(
-        <>
-            <div className="h-fit flex-col-center justify-center bg-[#FFE66F] mt-4 p-5 shadow-xl rounded-2xl">
+        <div className="max-sm:w-dvw">
+            <div className="h-[280px] w-full flex flex-col bg-[#FFE66F] mt-4 p-5 shadow-xl rounded-2xl">
                 <h2>搜尋景點</h2>
                 <input 
                     type="text" 
                     placeholder="輸入景點名稱"
-                    className="p-1 bg-amber-50 rounded"
-                    onChange={(e)=>setInput(e.target.value)}/>            
-                <div className="max-sm:flex-col-center sm:flex sm:justify-center sm:items-center gap-1">
-                    {Search?.map((item)=>{
-                            return(
-                                <div key={item.location} className='mt-3 h-30 flex-col-center justify-center bg-gray-300 p-2 rounded-lg shadow-md '>
-                                    <div>{item.city}</div>
-                                    {item.name}
-                                    <a href={item.location} target='_blank'>➔</a>
-                                </div>
-                            )
-                        })
+                    className="p-1 bg-amber-50 rounded w-[200px]"
+                    onChange={(e)=>setInput(e.target.value)}/>
+                <div className={`flex gap-4 whitespace-nowrap overflow-x-auto overflow-y-hidden pb-2 snap-x snap-mandatory transition-all duration-300 ${Search?.length !== 0? 'opacity-100':'opacity-0'}`}>
+                    {Search?.length !== 0 ? Search?.map((item)=>{
+                        return(
+                            <div key={item.location} className='main-card mt-3'>
+                                <div>{item.city}</div>
+                                {item.name}
+                                <a href={item.location} target='_blank'>➔</a>
+                                {/* 添加最愛按鈕 */}
+                                <button 
+                                    className='absolute w-6 text-red-600 top-2 left-2 hover:scale-125 hover:text-red-800 active:bg-gray-400 rounded-full transition-all  duration-300'
+                                    onClick={()=>handleCollection(item.id)}>
+                                        {Favorites.includes(item.id)? '★': '☆'}
+                                </button>
+                            </div>
+                        )
+                        }):
+                        <div className="main-card mt-3 opacity-0">
+                            {/* 占用 */}
+                        </div>
                     }
                 </div>
             </div>
-
-        </>
+        </div>
     )
 }
 
