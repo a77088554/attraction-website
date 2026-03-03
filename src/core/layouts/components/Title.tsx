@@ -31,10 +31,10 @@ function Title(){
 
     return(
         <div className="w-full" ref={menuRef}>
-            <div className="bg-[#FFF4C1] font-bold text-xl w-full flex justify-between px-5 py-3 items-center">
+            <div className="title-bg-text-color font-bold text-2xl w-full flex justify-between px-5 py-3 items-center">
                 <h1 className="text-2xl font-bold tracking-wide my-3">觀光景點推薦網站</h1>
                 <button 
-                    className="sm:hidden text-2xl hover:bg-gray-300 duration-300 px-2 py-1 rounded" 
+                    className="sm:hidden text-2xl hover:bg-gray-500 duration-300 px-2 py-1 rounded" 
                     onClick={(e)=>{
                         e.stopPropagation()
                         setMenuOpen(prev=>!prev)
@@ -64,7 +64,7 @@ function Title(){
                 </div>
             </div>
             <div 
-                className={`sm:hidden w-full bg-[#FFFCEC] shadow-md font-bold text-xl flex-col-center transition-all duration-300 ${MenuOpen? 'opacity-100 py-3 mb-3 ': 'opacity-0 h-0'}`}>
+                className={`title-bg-text-color sm:hidden w-full shadow-2xl font-bold text-xl flex-col-center transition-all duration-300 ${MenuOpen? 'opacity-100 py-3 mb-3 ': 'opacity-0 h-0'}`}>
                 {!IsLogin ?
                     <GoogleLogin
                         onSuccess={credentialResponse => {

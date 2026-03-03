@@ -6,6 +6,27 @@
     }
 
     .main-card{
-        @apply max-w-[300px] min-w-[180px] snap-start shrink-0 relative h-30 flex flex-col items-center justify-center bg-white hover:bg-gray-100 p-4 rounded-2xl shadow-md hover:shadow-xl duration-300
+        @apply max-w-[300px] min-w-[180px] snap-start shrink-0 relative h-30 flex flex-col items-center justify-center bg-white hover:bg-gray-100 p-4 rounded-2xl shadow-md hover:shadow-xl duration-300;
     }
+
+    .title-bg-text-color{
+        @apply bg-deepBlue text-gray-50;
+    }
+
+    .main-bg-text-color{
+        @apply bg-lightBlue text-gray-50;
+    }
+
+    .section-bg-text-color{
+        @apply bg-deepBlue text-gray-50;
+    }
+
+    .card-bg-text-color{
+        @apply bg-gray-300 text-black;
+    }
+}
+
+@theme{
+    --color-deepBlue: #004b97;
+    --color-lightBlue: 	#2894FF;
 }

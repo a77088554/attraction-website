@@ -27,12 +27,12 @@ function Favorites({Favorites, UpdateFavorites}:{Favorites: number[], UpdateFavo
     }
 
     return(
-        <div className="max-sm:w-dvw bg-[#FFE66F] mt-4 p-5 shadow-xl rounded-2xl">
+        <div className="max-lg:w-dvw section-bg-text-color max-sm:w-dvw p-5 shadow-xl rounded-2xl">
             <h2 className="mb-3">已收藏的景點</h2>
-            <div className="flex gap-4 whitespace-nowrap overflow-x-auto overflow-y-hidden pb-2 snap-x snap-mandatory">
+            <div className="lg:grid lg:grid-cols-4 max-lg:flex gap-4 whitespace-nowrap overflow-x-auto overflow-y-hidden pb-2 snap-x snap-mandatory">
                 {Attractions && Attractions.filter((item)=>Favorites.includes(item.id)).map((item)=>{
                     return (
-                        <div key={item.id} className="main-card">
+                        <div key={item.id} className="main-card card-bg-text-color">
                             {item.name}
                             <a href={item.location} target='_blank'>➔</a>
                             <button 

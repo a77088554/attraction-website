@@ -7,7 +7,7 @@ function AttractionView(){
     const favoritesHook = useFavorites()
     
     return(
-        <div className="w-full py-8 bg-[#FFF4C1] flex-col-center">
+        <div className="w-full py-8 main-bg-text-color flex-col-center">
             <Main {...favoritesHook}/> 
             <div className="flex-col-center gap-5">
                 <Search {...favoritesHook}/>

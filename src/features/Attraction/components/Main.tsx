@@ -56,7 +56,7 @@ function Main({Favorites, UpdateFavorites}:{Favorites: number[], UpdateFavorites
                 <h2 className='text-xl tracking-wide'>查詢旅遊景點以及當地天氣</h2>
                 <div className='w-full md:flex md:justify-center max-sm:flex-col-center gap-5'>
                     {/* 當地天氣預報 */}
-                    <div className='h-fit flex-col-center bg-[#FFE66F] rounded-2xl shadow-lg p-3'>
+                    <div className='section-bg-text-color h-fit flex-col-center rounded-2xl shadow-lg p-3 mb-3'>
                         <h1>當地天氣預報</h1>
                         <div>
                             {WeatherData?.map((item: TaiwanWeatherModel) => {
@@ -71,18 +71,18 @@ function Main({Favorites, UpdateFavorites}:{Favorites: number[], UpdateFavorites
                                 }
                             })}
                         </div>
-                        <select className='bg-[#FFF4C1] hover:bg-[#FFED97] border rounded-lg p-1' onChange={(e)=> setCity(e.target.value)}>
+                        <select className='focus:bg-sky-400 focus:text-black border rounded-lg p-1' onChange={(e)=> setCity(e.target.value)}>
                             {Citys.map((city:string)=><option key={city} value={city}>{city}</option>)}
                         </select>
                     </div>
                     {/* 推薦觀光景點 */}
-                    <div className='h-[240px] lg:w-fit max-sm:w-full flex flex-col bg-[#FFE66F] rounded-2xl shadow-lg p-3'>
+                    <div className='section-bg-text-color h-[240px] lg:w-fit max-sm:w-full flex flex-col rounded-2xl shadow-lg p-3'>
                         <h1 className='pl-3 py-2'>{city}推薦光觀地點</h1>
                         <div className='flex gap-4 whitespace-nowrap overflow-x-auto overflow-y-hidden pb-2 snap-x snap-mandatory'>
                             {Attractions && Attractions.map((item: AttractionModel)=>{
                                 if(item.city === city){
                                     return(
-                                        <div key={item.id} className='main-card'>
+                                        <div key={item.id} className='main-card card-bg-text-color'>
                                             {item.name}
                                             <a href={item.location} target='_blank'>➔</a>
                                             {/* 添加判斷是否為收藏 */}
@@ -95,7 +95,7 @@ function Main({Favorites, UpdateFavorites}:{Favorites: number[], UpdateFavorites
                                     )
                                 }
                             })}
-                            <div className='main-card'>
+                            <div className='main-card card-bg-text-color'>
                                 提交其他景點
                                 <button onClick={()=>handlePost(IsLogin)}>➔</button>
                                 {showSubmit && <SubmitSuggest setShowSubmit={setShowSubmit} city={city}/>}

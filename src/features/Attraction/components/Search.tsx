@@ -31,17 +31,17 @@ function Search({Favorites, UpdateFavorites}:{Favorites: number[], UpdateFavorit
 
     return(
         <div className="max-sm:w-dvw">
-            <div className="h-[280px] w-full flex flex-col bg-[#FFE66F] mt-4 p-5 shadow-xl rounded-2xl">
+            <div className="section-bg-text-color h-[280px] w-full flex flex-col mt-4 p-5 shadow-xl rounded-2xl">
                 <h2>搜尋景點</h2>
                 <input 
                     type="text" 
                     placeholder="輸入景點名稱"
-                    className="p-1 bg-amber-50 rounded w-[200px]"
+                    className="border focus:bg-sky-600 p-1 rounded w-[200px]"
                     onChange={(e)=>setInput(e.target.value)}/>
                 <div className={`flex gap-4 whitespace-nowrap overflow-x-auto overflow-y-hidden pb-2 snap-x snap-mandatory transition-all duration-300 ${Search?.length !== 0? 'opacity-100':'opacity-0'}`}>
                     {Search?.length !== 0 ? Search?.map((item)=>{
                         return(
-                            <div key={item.location} className='main-card mt-3'>
+                            <div key={item.location} className='main-card my-1 card-bg-text-color'>
                                 <div>{item.city}</div>
                                 {item.name}
                                 <a href={item.location} target='_blank'>➔</a>
