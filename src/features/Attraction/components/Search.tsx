@@ -39,7 +39,7 @@ function Search({Favorites, UpdateFavorites}:{Favorites: number[], UpdateFavorit
                     className="border focus:bg-sky-600 p-1 rounded w-[200px]"
                     onChange={(e)=>setInput(e.target.value)}/>
                 <div className={`flex gap-4 whitespace-nowrap overflow-x-auto overflow-y-hidden pb-2 snap-x snap-mandatory transition-all duration-300 ${Search?.length !== 0? 'opacity-100':'opacity-0'}`}>
-                    {Search?.length !== 0 ? Search?.map((item)=>{
+                    {Search && Search?.map((item)=>{
                         return(
                             <div key={item.location} className='main-card my-1 card-bg-text-color'>
                                 <div>{item.city}</div>
@@ -53,10 +53,7 @@ function Search({Favorites, UpdateFavorites}:{Favorites: number[], UpdateFavorit
                                 </button>
                             </div>
                         )
-                        }):
-                        <div className="main-card mt-3 opacity-0">
-                            {/* 占用 */}
-                        </div>
+                        })
                     }
                 </div>
             </div>
