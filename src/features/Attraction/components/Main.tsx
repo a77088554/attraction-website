@@ -10,7 +10,7 @@ import { AuthContext } from '../../../core/context/AuthContext'
 // 補充Attraction資料在props中
 function Main({Favorites, UpdateFavorites}:{Favorites: number[], UpdateFavorites: (input: number[]) => Promise<void>}){
     const {IsLogin, setMenuOpen} = useContext(AuthContext)
-    const {Attractions} = useAttraction()
+    const {Attractions, loading, error} = useAttraction()
     const [city, setCity] = useState<string>('嘉義縣')
     const [showSubmit, setShowSubmit] = useState<boolean>(false)
     const {WeatherData} = useWeather()
@@ -78,29 +78,34 @@ function Main({Favorites, UpdateFavorites}:{Favorites: number[], UpdateFavorites
                     {/* 推薦觀光景點 */}
                     <div className='section-bg-text-color h-[240px] lg:w-fit max-sm:w-full flex flex-col rounded-2xl shadow-lg p-3'>
                         <h1 className='pl-3 py-2'>{city}推薦光觀地點</h1>
-                        <div className='flex gap-4 whitespace-nowrap overflow-x-auto overflow-y-hidden pb-2 snap-x snap-mandatory'>
-                            {Attractions && Attractions.map((item: AttractionModel)=>{
-                                if(item.city === city){
-                                    return(
-                                        <div key={item.id} className='main-card card-bg-text-color'>
-                                            {item.name}
-                                            <a href={item.location} target='_blank'>➔</a>
-                                            {/* 添加判斷是否為收藏 */}
-                                            <button 
-                                                className='absolute w-6 text-red-600 top-2 left-2 hover:scale-125 hover:text-red-800 active:bg-gray-400 rounded-full transition-all duration-300'
-                                                onClick={()=>handleCollection(item.id)}>
-                                                    {Favorites.includes(item.id)? '★': '☆'}
-                                            </button>
-                                        </div>
-                                    )
-                                }
-                            })}
-                            <div className='main-card card-bg-text-color'>
-                                提交其他景點
-                                <button onClick={()=>handlePost(IsLogin)}>➔</button>
-                                {showSubmit && <SubmitSuggest setShowSubmit={setShowSubmit} city={city}/>}
-                            </div>
-                        </div>
+                        {error?
+                            <div className='text-red-600 h-30 flex-col-center justify-center'>Error! 請刷新頁面</div>:
+                            !loading?
+                                <div className='flex gap-4 whitespace-nowrap overflow-x-auto overflow-y-hidden pb-2 snap-x snap-mandatory'>
+                                    {Attractions && Attractions.map((item: AttractionModel)=>{
+                                        if(item.city === city){
+                                            return(
+                                                <div key={item.id} className='main-card card-bg-text-color'>
+                                                    {item.name}
+                                                    <a href={item.location} target='_blank'>➔</a>
+                                                    {/* 添加判斷是否為收藏 */}
+                                                    <button 
+                                                        className='absolute w-6 text-red-600 top-2 left-2 hover:scale-125 hover:text-red-800 active:bg-gray-400 rounded-full transition-all duration-300'
+                                                        onClick={()=>handleCollection(item.id)}>
+                                                            {Favorites.includes(item.id)? '★': '☆'}
+                                                    </button>
+                                                </div>
+                                            )
+                                        }
+                                    })}
+                                    <div className='main-card card-bg-text-color'>
+                                        提交其他景點
+                                        <button onClick={()=>handlePost(IsLogin)}>➔</button>
+                                        {showSubmit && <SubmitSuggest setShowSubmit={setShowSubmit} city={city}/>}
+                                    </div>
+                                </div>:
+                                <div className='text-gray-50 h-30 flex-col-center justify-center'>Loading</div>
+                        }
                     </div>
                 </div>
             </div>
