@@ -52,11 +52,11 @@ function Main({Favorites, UpdateFavorites}:{Favorites: number[], UpdateFavorites
 
     return(
         <>
-            <div className="w-full flex-col-center lg:">
+            <div className="w-dvw flex-col-center">
                 <h2 className='text-xl tracking-wide'>查詢旅遊景點以及當地天氣</h2>
-                <div className='w-full md:flex md:justify-center max-sm:flex-col-center gap-5'>
+                <div className='w-dvw lg:flex lg:justify-center max-lg:flex max-lg:flex-col max-lg:items-center gap-5'>
                     {/* 當地天氣預報 */}
-                    <div className='section-bg-text-color h-fit flex-col-center rounded-2xl shadow-lg p-3 mb-3'>
+                    <div className='section-bg-text-color max-lg:w-fit h-fit flex-col-center rounded-2xl shadow-lg p-5'>
                         <h1>當地天氣預報</h1>
                         <div>
                             {WeatherData?.map((item: TaiwanWeatherModel) => {
@@ -76,8 +76,8 @@ function Main({Favorites, UpdateFavorites}:{Favorites: number[], UpdateFavorites
                         </select>
                     </div>
                     {/* 推薦觀光景點 */}
-                    <div className='section-bg-text-color h-[240px] lg:w-fit max-sm:w-full flex flex-col rounded-2xl shadow-lg p-3'>
-                        <h1 className='pl-3 py-2'>{city}推薦光觀地點</h1>
+                    <div className='section-bg-text-color h-[260px] lg:w-[50dvw] max-lg:w-dvw flex flex-col rounded-2xl shadow-lg p-5'>
+                        <h1 className="mb-2">{city}推薦光觀地點</h1>
                         {error?
                             <div className='text-red-600 h-30 flex-col-center justify-center'>Error! 請刷新頁面</div>:
                             !loading?

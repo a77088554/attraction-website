@@ -36,7 +36,7 @@ function SubmitSuggest({setShowSubmit, city}: {setShowSubmit: React.Dispatch<Rea
 
     return(
         <>
-            <div className="fixed inset-0 bg-gray-400/80 flex justify-center items-center">
+            <div className="fixed z-9999 inset-0 bg-gray-400/80 flex justify-center items-center">
                 <form className="bg-white p-6 rounded-xl w-80 shadow-lg" onSubmit={(e)=>handleSubmit(e)}>
                     <h2 className="text-xl mb-4">推薦景點</h2>
                     <input className="border p-2 w-full mb-3" name="attraction"/>

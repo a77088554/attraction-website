@@ -26,16 +26,16 @@ function Favorites({Favorites, loading, error, UpdateFavorites}:{Favorites: numb
     }
 
     return(
-        <div className="max-lg:w-dvw lg:min-w-[250px] min-h-[280px] section-bg-text-color max-sm:w-dvw p-5 shadow-xl rounded-2xl">
-            <h2 className="mb-3">已收藏的景點</h2>
-            <div className="lg:grid lg:grid-cols-4 max-lg:flex gap-4 whitespace-nowrap overflow-x-auto overflow-y-hidden pb-2 snap-x snap-mandatory">
+        <div className="max-lg:w-dvw lg:min-w-[250px] min-h-[260px] section-bg-text-color max-sm:w-dvw p-5 shadow-xl rounded-2xl">
+            <h2 className="mb-2">已收藏的景點</h2>
+            <div className="lg:grid lg:grid-cols-4 max-lg:flex gap-4 whitespace-nowrap overflow-x-auto overflow-y-hidden pb-1 snap-x snap-mandatory">
                 {error?
                     <div className='text-red-600 h-30 flex-col-center justify-center'>Error! 請刷新頁面</div>:
                     loading?
                         <div className="text-gray-50 h-30 flex-col-center justify-center">Loading</div>:
                         Attractions && Attractions.filter((item)=>Favorites.includes(item.id)).map((item)=>{
                         return (
-                            <div key={item.id} className=" main-card card-bg-text-color">
+                            <div key={item.id} className="main-card card-bg-text-color">
                                 {item.name}
                                 <a href={item.location} target='_blank'>➔</a>
                                 <button 
